@@ -1,12 +1,20 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserService } from './user-service/user-service';
-import { UserControllerController } from './user-controller/user-controller.controller';
+import { ConfigModule } from '@nestjs/config';
+import { database_config } from './configs/configuration.config';
 
 @Module({
-  imports: [],
-  controllers: [AppController, UserControllerController],
-  providers: [AppService, UserService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV === 'development' ? '.env.dev' : '.env',
+      load: [database_config],
+      cache: true,
+      expandVariables: true,
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
