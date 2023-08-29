@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { database_config } from './configs/configuration.config';
+import { database_config } from '@configs/configuration.config';
 import Joi from 'joi';
 
 @Module({
