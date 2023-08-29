@@ -10,9 +10,10 @@ import Joi from 'joi';
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         NODE_ENV: Joi.string()
-          .valid('development', 'production', 'test', 'provision', 'staging')
+          .valid('development', 'production', 'staging')
           .default('development'),
-        PORT: Joi.number().default(3000),
+        PORT: Joi.number().port().required(),
+        DATABASE_PORT: Joi.number().port().required(),
       }),
       validationOptions: {
         abortEarly: false,

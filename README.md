@@ -11,6 +11,8 @@
 
 ```bash
 $ yarn install
+
+$ yarn docker:dev
 ```
 
 ## Running the app
