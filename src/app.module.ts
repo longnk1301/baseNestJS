@@ -5,6 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { database_config } from '@configs/configuration.config';
 import Joi from 'joi';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from './users/users.module';
+import { UserRolesModule } from './user-roles/user-roles.module';
+import { TopicsModule } from './topics/topics.module';
+import { FlashCardsModule } from './flash-cards/flash-cards.module';
+import { CollectionModule } from './collection/collection.module';
 
 @Module({
   imports: [
@@ -33,6 +38,11 @@ import { MongooseModule } from '@nestjs/mongoose';
       }),
       inject: [ConfigService],
     }),
+    UsersModule,
+    UserRolesModule,
+    TopicsModule,
+    FlashCardsModule,
+    CollectionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
