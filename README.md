@@ -6,6 +6,8 @@
 * npm version: 9.6.4
 * node: 16.14.0
 * Joi: 17.9.2
+* mongoose: 7.5.0
+* @nestjs/mongoose: 10.0.1
 
 ## Installation
 
