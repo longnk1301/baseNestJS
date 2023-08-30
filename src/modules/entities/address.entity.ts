@@ -4,26 +4,21 @@ import { HydratedDocument } from 'mongoose';
 
 export type AddressDocument = HydratedDocument<Address>;
 
-@Schema({
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-  },
-})
+@Schema()
 export class Address extends BaseEntity {
-  @Prop()
-  street: string;
+  @Prop({ minlength: 2, maxlength: 120 })
+  street?: string;
 
-  @Prop()
-  city: string;
-
-  @Prop()
+  @Prop({ required: true, minlength: 2, maxlength: 50 })
   state: string;
 
-  @Prop()
-  postalCode: string;
+  @Prop({ required: true, minlength: 2, maxlength: 50 })
+  city: string;
 
-  @Prop()
+  @Prop({ required: false, minlength: 2, maxlength: 50 })
+  postal_code?: number;
+
+  @Prop({ required: true, minlength: 2, maxlength: 50 })
   country: string;
 }
 
