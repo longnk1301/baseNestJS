@@ -2,10 +2,7 @@ import { Module } from '@nestjs/common';
 import { CollectionService } from './collection.service';
 import { CollectionController } from './collection.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  Collection,
-  CollectionSchema,
-} from '@modules/entities/collection.entity';
+import { Collection, CollectionSchema } from './entities/collection.entity';
 
 @Module({
   controllers: [CollectionController],

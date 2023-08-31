@@ -1,8 +1,12 @@
+import { NextFunction } from 'express';
+import { Model } from 'mongoose';
 import { BaseEntity } from '@modules/shared/base/base.entity';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { UserRole } from './user-role.entity';
+import { UserRole } from '@modules/user-roles/entities/user-role.entity';
 import { Address, AddressSchema } from './address.entity';
+import { FlashCardDocument } from '@modules/flash-cards/entities/flash-card.entity';
+import { CollectionDocument } from '@modules/collection/entities/collection.entity';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -84,3 +88,29 @@ export class User extends BaseEntity {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+export const UserSchemaFactory = (
+  flash_card_model: Model<FlashCardDocument>,
+  collection_model: Model<CollectionDocument>,
+) => {
+  const user_schema = UserSchema;
+
+  user_schema.pre('findOneAndDelete', async function (next: NextFunction) {
+    // OTHER USEFUL METHOD: getOptions, getPopulatedPaths, getQuery = getFilter, getUpdate
+    const user = await this.model.findOne(this.getFilter());
+    await Promise.all([
+      flash_card_model
+        .deleteMany({
+          user: user._id,
+        })
+        .exec(),
+      collection_model
+        .deleteMany({
+          user: user._id,
+        })
+        .exec(),
+    ]);
+    return next();
+  });
+  return user_schema;
+};

@@ -1,8 +1,8 @@
 import { BaseEntity } from '@modules/shared/base/base.entity';
+import { Topic } from '@modules/topics/entities/topic.entity';
+import { User } from '@modules/users/entities/user.entity';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { User } from './user.entity';
-import { Topic } from './topic.entity';
 
 export type FlashCardDocument = HydratedDocument<FlashCard>;
 

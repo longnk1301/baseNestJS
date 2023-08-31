@@ -2,10 +2,7 @@ import { Module } from '@nestjs/common';
 import { FlashCardsService } from './flash-cards.service';
 import { FlashCardsController } from './flash-cards.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  FlashCard,
-  FlashCardSchema,
-} from '@modules/entities/flash-card.entity';
+import { FlashCard, FlashCardSchema } from './entities/flash-card.entity';
 
 @Module({
   controllers: [FlashCardsController],

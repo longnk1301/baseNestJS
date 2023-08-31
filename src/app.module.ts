@@ -5,11 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { database_config } from '@configs/configuration.config';
 import Joi from 'joi';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersModule } from './users/users.module';
-import { UserRolesModule } from './user-roles/user-roles.module';
-import { TopicsModule } from './topics/topics.module';
-import { FlashCardsModule } from './flash-cards/flash-cards.module';
-import { CollectionModule } from './collection/collection.module';
+import { UsersModule } from '@modules/users/users.module';
+import { UserRolesModule } from '@modules/user-roles/user-roles.module';
+import { TopicsModule } from '@modules/topics/topics.module';
+import { FlashCardsModule } from '@modules/flash-cards/flash-cards.module';
+import { CollectionModule } from '@modules/collection/collection.module';
 
 @Module({
   imports: [
