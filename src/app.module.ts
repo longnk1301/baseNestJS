@@ -16,19 +16,23 @@ import { CollectionModule } from '@modules/collection/collection.module';
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         NODE_ENV: Joi.string()
-          .valid('development', 'production', 'staging')
+          .valid('development', 'production')
           .default('development'),
         PORT: Joi.number().port().required(),
         DATABASE_PORT: Joi.number().port().required(),
+        DATABASE_USERNAME: Joi.string().min(4).required(),
+        DATABASE_PASSWORD: Joi.string().min(4).required(),
+        DATABASE_HOST: Joi.string().required(),
+        DATABASE_URI: Joi.string().required(),
       }),
       validationOptions: {
         abortEarly: false,
       },
-      isGlobal: true,
-      envFilePath: process.env.NODE_ENV === 'development' ? '.env.dev' : '.env',
       load: [database_config],
+      isGlobal: true,
       cache: true,
       expandVariables: true,
+      envFilePath: process.env.NODE_ENV === 'development' ? '.env.dev' : '.env',
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],

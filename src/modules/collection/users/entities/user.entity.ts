@@ -4,7 +4,7 @@ import { BaseEntity } from '@modules/shared/base/base.entity';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { UserRole } from '@modules/user-roles/entities/user-role.entity';
-import { Address, AddressSchema } from './address.entity';
+import { Address, AddressSchema } from '@modules/users/entities/address.entity';
 import { FlashCardDocument } from '@modules/flash-cards/entities/flash-card.entity';
 import { CollectionDocument } from '@modules/collection/entities/collection.entity';
 
@@ -20,29 +20,12 @@ export enum GENDER {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
   },
-  toJSON: {
-    getters: true,
-  },
 })
 export class User extends BaseEntity {
-  @Prop({
-    required: true,
-    minlength: 2,
-    maxlength: 60,
-    set: (first_name: string) => {
-      return first_name.trim();
-    },
-  })
+  @Prop({ required: true, minlength: 2, maxlength: 60 })
   first_name: string;
 
-  @Prop({
-    required: true,
-    minlength: 2,
-    maxlength: 60,
-    set: (last_name: string) => {
-      return last_name.trim();
-    },
-  })
+  @Prop({ required: true })
   last_name: string;
 
   @Prop({
@@ -54,13 +37,6 @@ export class User extends BaseEntity {
 
   @Prop({
     match: /^([+]\d{2})?\d{10}$/,
-    get: (phone_number: string) => {
-      if (!phone_number) {
-        return;
-      }
-      const last_three_digits = phone_number.slice(phone_number.length - 4);
-      return `****-***-${last_three_digits}`;
-    },
   })
   phone_number: string;
 
