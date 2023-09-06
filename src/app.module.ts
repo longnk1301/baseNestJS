@@ -36,10 +36,12 @@ import { CollectionModule } from '@modules/collection/collection.module';
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DATABASE_URI'),
-        dbName: configService.get<string>('DATABASE_NAME'),
-      }),
+      useFactory: async (configService: ConfigService) => {
+        return {
+          uri: configService.get<string>('DATABASE_URI'),
+          dbName: configService.get<string>('DATABASE_NAME'),
+        };
+      },
       inject: [ConfigService],
     }),
     UsersModule,

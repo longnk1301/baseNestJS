@@ -11,11 +11,13 @@ import {
   Collection,
   CollectionSchema,
 } from '@modules/collection/entities/collection.entity';
+import { UserRolesModule } from '@modules/user-roles/user-roles.module';
 
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
   imports: [
+    UserRolesModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     MongooseModule.forFeatureAsync([
       {

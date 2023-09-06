@@ -9,10 +9,12 @@ services:
       target: development
     command: npm run start:dev
     ports:
-      - ${PORT}:${PORT}
+      - ${PORT}:${PORT}    
     volumes:
       - ./:/usr/src/app
     restart: unless-stopped
+    networks:
+      - flash
 
   flash_cards_mongodb:
     container_name: ${DATABASE_HOST}
@@ -22,9 +24,13 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD} # và dùng --env-file để đọc từ .env.dev
     expose:
       - ${DATABASE_PORT}
+    ports:
+      - 27017:27017
     volumes:
       - ./mongo-data:/data/db # Mount data ra bên ngoài để tránh dữ liệu bị xóa khi remove container
     restart: unless-stopped
+    networks:
+      - flash
 
   flash_cards_mongo_express:
     container_name: flash_cards_mongo_express
@@ -38,7 +44,9 @@ services:
     depends_on:
       - flash_cards_mongodb
     restart: unless-stopped
+    networks:
+      - flash
 
 networks:
-  default:
+  flash:
     driver: bridge
